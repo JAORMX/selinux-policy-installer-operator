@@ -1,0 +1,11 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: selinux-policy-installer-operator
+subjects:
+- kind: ServiceAccount
+  name: selinux-policy-installer-operator
+roleRef:
+  kind: Role
+  name: selinux-policy-installer-operator
+  apiGroup: rbac.authorization.k8s.io

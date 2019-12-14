@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selinux-policy-installer-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: selinux-policy-installer-operator
+  template:
+    metadata:
+      labels:
+        name: selinux-policy-installer-operator
+    spec:
+      serviceAccountName: selinux-policy-installer-operator
+      containers:
+        - name: selinux-policy-installer-operator
+          # Replace this with the built image name
+          image: REPLACE_IMAGE
+          command:
+          - selinux-policy-installer-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "selinux-policy-installer-operator"
